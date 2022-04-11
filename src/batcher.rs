@@ -2,7 +2,7 @@
 
 use crate::errors::Error as AnalyticsError;
 use crate::message::{Batch, BatchMessage, Message};
-use failure::Error;
+use anyhow::Error;
 use serde_json::{Map, Value};
 
 const MAX_MESSAGE_SIZE: usize = 1024 * 32;
@@ -153,7 +153,7 @@ mod tests {
         let result = batcher.push(batch_msg.into());
 
         let err = result.err().unwrap();
-        let err: &AnalyticsError = err.as_fail().downcast_ref().unwrap();
+        let err: &AnalyticsError = err.downcast_ref().unwrap();
 
         match err {
             AnalyticsError::MessageTooLarge => {}

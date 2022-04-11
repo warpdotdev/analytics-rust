@@ -2,7 +2,7 @@
 
 use crate::client::Client;
 use crate::message::Message;
-use failure::Error;
+use anyhow::Result;
 use std::time::Duration;
 
 /// A client which synchronously sends single messages to the Segment tracking
@@ -40,7 +40,7 @@ impl HttpClient {
 }
 
 impl Client for HttpClient {
-    fn send(&self, write_key: &str, msg: &Message) -> Result<(), Error> {
+    fn send(&self, write_key: &str, msg: &Message) -> Result<()> {
         let path = match msg {
             Message::Identify(_) => "/v1/identify",
             Message::Track(_) => "/v1/track",
