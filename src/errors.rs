@@ -1,12 +1,11 @@
 //! Errors which may arise from this crate.
 
-use failure::Fail;
+use thiserror::Error;
 
-/// An enum of errors this crate may produce. These are compatible with
-/// `failure` errors.
-#[derive(Debug, Fail)]
+/// An enum of errors this crate may produce.
+#[derive(Debug, Error)]
 pub enum Error {
     /// The given message is too large to be sent to Segment's API.
-    #[fail(display = "message too large")]
+    #[error("message too large")]
     MessageTooLarge,
 }
