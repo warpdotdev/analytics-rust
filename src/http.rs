@@ -19,7 +19,13 @@ impl Default for HttpClient {
     fn default() -> Self {
         HttpClient {
             client: reqwest::blocking::Client::builder()
-                .connect_timeout(Duration::new(10, 0))
+                // Keep idle connections in the pool for up to 55s. AWS
+                // Application Load Balancers will drop idle connections after
+                // 60s and the default pool idle timeout is 90s; a pool idle
+                // timeout longer than the server timeout can lead to errors
+                // upon trying to use an idle connection.
+                .pool_idle_timeout(Duration::from_secs(55))
+                .connect_timeout(Duration::from_secs(10))
                 .build()
                 .unwrap(),
             host: "https://api.segment.io".to_owned(),
