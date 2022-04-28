@@ -20,10 +20,10 @@ impl Default for HttpClient {
         HttpClient {
             client: reqwest::blocking::Client::builder()
                 // Keep idle connections in the pool for up to 55s. AWS
-                // ALBs will drop idle connections after 60s and the default
-                // pool idle timeout is 90s; a pool idle timeout longer than
-                // the server timeout can lead to errors upon trying to use
-                // an idle connection.
+                // Application Load Balancers will drop idle connections after
+                // 60s and the default pool idle timeout is 90s; a pool idle
+                // timeout longer than the server timeout can lead to errors
+                // upon trying to use an idle connection.
                 .pool_idle_timeout(Duration::from_secs(55))
                 .connect_timeout(Duration::from_secs(10))
                 .build()
