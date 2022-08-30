@@ -19,7 +19,7 @@ impl Default for HttpClient {
     fn default() -> Self {
         HttpClient {
             client: reqwest::blocking::Client::builder()
-                // Don't allow insecure connections; they will be rejected byu
+                // Don't allow insecure connections; they will be rejected by
                 // the server with a 403 Forbidden.
                 .https_only(true)
                 // Keep idle connections in the pool for up to 55s. AWS
