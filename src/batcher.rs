@@ -97,6 +97,16 @@ impl Batcher {
         Ok(None)
     }
 
+    /// Returns the number of messages stored within the batch.
+    pub fn len(&self) -> usize {
+        self.buf.len()
+    }
+
+    /// Returns `true` if the batch contains no messages.
+    pub fn is_empty(&self) -> bool {
+        self.buf.is_empty()
+    }
+
     /// Consumes this batcher and converts it into a message that can be sent to
     /// Segment.
     pub fn into_message(self) -> Message {
