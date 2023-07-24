@@ -1,11 +1,11 @@
 use analytics::client::Client;
 use analytics::http::HttpClient;
 use analytics::message::Message;
+use anyhow::Result;
 use clap::{App, AppSettings, Arg, SubCommand};
-use failure::Error;
 use std::io;
 
-fn main() -> Result<(), Error> {
+fn main() -> Result<()> {
     let matches = App::new("Analytics")
         .version("0.1")
         .author("Segment <friends@segment.com>")
@@ -34,7 +34,7 @@ fn main() -> Result<(), Error> {
         .get_matches();
 
     let client = HttpClient::new(
-        reqwest::Client::new(),
+        reqwest::blocking::Client::new(),
         matches.value_of("host").unwrap().to_owned(),
     );
 
