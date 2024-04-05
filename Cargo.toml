@@ -27,7 +27,7 @@ version = "2.33"
 
 [dependencies.reqwest]
 default-features = false
-features = ["json"]
+features = ["json", "macos-system-configuration"]
 version = "0.12.3"
 
 [dependencies.serde]
